@@ -12,24 +12,24 @@
         <meta name="author" content="Твой Имя">
       
       
-        <link rel="canonical" href="https://dfgion.github.io/TonikX-ITMO_ICT_WebDevelopment_2025-2026/">
+        <link rel="canonical" href="https://dfgion.github.io/TonikX-ITMO_ICT_WebDevelopment_2025-2026/task1/">
       
       
       
       
-      <link rel="icon" href="images/logo.png">
+      <link rel="icon" href="../images/logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
-        <title>Отчёт по лабораторным работам</title>
+        <title>Отчёт по заданию: UDP клиент-сервер на Python - Отчёт по лабораторным работам</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +48,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1" class="md-skip">
+        <a href="#udp-python" class="md-skip">
           Skip to content
         </a>
       
@@ -88,9 +88,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Отчёт по лабораторным работам" class="md-header__button md-logo" aria-label="Отчёт по лабораторным работам" data-md-component="logo">
+    <a href=".." title="Отчёт по лабораторным работам" class="md-header__button md-logo" aria-label="Отчёт по лабораторным работам" data-md-component="logo">
       
-  <img src="images/logo.png" alt="logo">
+  <img src="../images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Главная
+              Отчёт по заданию: UDP клиент-сервер на Python
             
           </span>
         </div>
@@ -199,9 +199,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Отчёт по лабораторным работам" class="md-nav__button md-logo" aria-label="Отчёт по лабораторным работам" data-md-component="logo">
+    <a href=".." title="Отчёт по лабораторным работам" class="md-nav__button md-logo" aria-label="Отчёт по лабораторным работам" data-md-component="logo">
       
-  <img src="images/logo.png" alt="logo">
+  <img src="../images/logo.png" alt="logo">
 
     </a>
     Отчёт по лабораторным работам
@@ -225,19 +225,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -248,7 +239,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -260,7 +250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="task_1/index.md" class="md-nav__link">
+      <a href="../task_1/index.md" class="md-nav__link">
         
   
   
@@ -282,7 +272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="task_2/index.md" class="md-nav__link">
+      <a href="../task_2/index.md" class="md-nav__link">
         
   
   
@@ -304,7 +294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="task_3/index.md" class="md-nav__link">
+      <a href="../task_3/index.md" class="md-nav__link">
         
   
   
@@ -326,7 +316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="task_4/index.md" class="md-nav__link">
+      <a href="../task_4/index.md" class="md-nav__link">
         
   
   
@@ -348,7 +338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="task_5/index.md" class="md-nav__link">
+      <a href="../task_5/index.md" class="md-nav__link">
         
   
   
@@ -382,16 +372,59 @@
   
 
 
-<h1 id="1">Лабораторная работа 1. Работа с сокетами.<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
-<p>Выполнил:
-Кутуков Даниил</p>
-<ul>
-<li><a href="task_1/index.md">Задание 1</a></li>
-<li><a href="task_2/index.md">Задание 2</a></li>
-<li><a href="task_3/index.md">Задание 3</a></li>
-<li><a href="task_4/index.md">Задание 4</a></li>
-<li><a href="task_5/index.md">Задание 5</a></li>
-</ul>
+<h1 id="udp-python">Отчёт по заданию: UDP клиент-сервер на Python<a class="headerlink" href="#udp-python" title="Permanent link">&para;</a></h1>
+<h2 id="_1">Цель<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Создать простое клиент-серверное приложение с использованием протокола UDP. Клиент отправляет сообщение серверу, а сервер отвечает обратно.</p>
+<hr />
+<h2 id="_2">Файлы проекта<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-serverpy">1. <code>server.py</code><a class="headerlink" href="#1-serverpy" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+
+<span class="n">HOST</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span> 
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">12345</span>        
+
+<span class="n">server_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">server_socket</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span> <span class="n">PORT</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Сервер запущен на </span><span class="si">{</span><span class="n">HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s2"> и ждет сообщения...&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">server_socket</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Получено от клиента </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;Hello, server&quot;</span><span class="p">:</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="s2">&quot;Hello, client&quot;</span>
+        <span class="n">server_socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">addr</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="2-clientpy">2. <code>client.py</code><a class="headerlink" href="#2-clientpy" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+
+<span class="n">SERVER_HOST</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="n">SERVER_PORT</span> <span class="o">=</span> <span class="mi">12345</span>
+
+<span class="n">client_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Hello, server&quot;</span>
+<span class="n">client_socket</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">SERVER_HOST</span><span class="p">,</span> <span class="n">SERVER_PORT</span><span class="p">))</span>
+
+<span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">client_socket</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ответ от сервера:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+
+<span class="n">client_socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="_3">Серверная часть:<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Создает UDP-сокет с помощью socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</p>
+<p>Привязывает сокет к локальному адресу и порту с помощью bind()</p>
+<p>В бесконечном цикле ожидает получение данных от клиентов</p>
+<p>При получении сообщения "Hello, server" отправляет ответ "Hello, client"</p>
+<h2 id="_4">Клиентская часть:<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>Создает UDP-сокет</p>
+<p>Отправляет сообщение "Hello, server" на сервер</p>
+<p>Ожидает и выводит ответ от сервера</p>
+<p>Закрывает соединение</p>
 
 
 
@@ -456,10 +489,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.sections", "navigation.expand", "content.code.annotate", "toc.integrate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "navigation.expand", "content.code.annotate", "toc.integrate"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>
