@@ -1,0 +1,1366 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Отчёт по лабораторным работам по разработке серверного приложения на FastAPI">
+      
+      
+        <meta name="author" content="Pulse Team">
+      
+      
+      
+        <link rel="prev" href="../lab2-async/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Лабораторная 3 — Docker и очереди - Лабораторные работы — Pulse Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#no3" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href=".." title="Лабораторные работы — Pulse Platform" class="md-header__button md-logo" aria-label="Лабораторные работы — Pulse Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Лабораторные работы — Pulse Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Лабораторная 3 — Docker и очереди
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Тёмная тема"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Тёмная тема" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Светлая тема"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Светлая тема" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/your-org/your-repo" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pulse-labs-report
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Главная
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../lab1-fastapi/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Лабораторная 1 — FastAPI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../lab2-async/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Лабораторная 2 — Асинхронность
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Лабораторная 3 — Docker и очереди
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Лабораторные работы — Pulse Platform" class="md-nav__button md-logo" aria-label="Лабораторные работы — Pulse Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Лабораторные работы — Pulse Platform
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/your-org/your-repo" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    pulse-labs-report
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Лабораторная 1 — FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2-async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Лабораторная 2 — Асинхронность
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Лабораторная 3 — Docker и очереди
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Лабораторная 3 — Docker и очереди
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#docker-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker, парсер данных, база данных, API и очередь
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Введение
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-fastapi-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Контейнеризация FastAPI-приложения
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Контейнеризация FastAPI-приложения">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-docker-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. Docker-образ backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Docker Compose — инфраструктура
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-healthchecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. Healthchecks и зависимости
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-shared-volume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4. Shared volume для файлов
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Интеграция парсера с базой данных
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Интеграция парсера с базой данных">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Типы парсеров в проекте
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-excel-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Парсинг Excel-файлов (основной pipeline)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. Парсинг Excel-файлов (основной pipeline)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Этап 1 — Подготовка на стороне API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Этап 2 — Обработка на стороне Scheduler
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Этап 3 — Операции с БД
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Парсинг посещаемости (внешний API)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Защитные лимиты парсера
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Вызов парсера через API и очередь
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Вызов парсера через API и очередь">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Почему очередь, а не прямой вызов
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Очереди и маршрутизация
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-pipeline-sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Полный pipeline (sequence diagram)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Обработка ошибок в очереди
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Схема развёртывания
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Локальная сборка и запуск
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Единственный фрагмент кода — публикация в очередь
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Результаты и выводы
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Результаты и выводы">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Преимущества выбранной архитектуры
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="no3">Лабораторная работа №3</h1>
+<h2 id="docker-api">Docker, парсер данных, база данных, API и очередь</h2>
+<div class="admonition info">
+<p class="admonition-title">Цель работы</p>
+<p>Научиться упаковывать FastAPI-приложение в <strong>Docker</strong>, интегрировать <strong>парсер данных</strong> с <strong>базой данных</strong> и вызывать парсер через <strong>API</strong> и <strong>очередь</strong> сообщений.</p>
+</div>
+<hr />
+<h2 id="1">1. Введение</h2>
+<p>Третья лабораторная работа объединяет три навыка в единый production-ready pipeline: контейнеризация приложения, асинхронная обработка данных и связь компонентов через message broker.</p>
+<p>В проекте <strong>Pulse</strong> реализован полный цикл обработки бизнес-данных:</p>
+<div class="highlight"><pre><span></span><code>Загрузка Excel → Валидация → Публикация в очередь → Парсинг CSV → Запись в PostgreSQL → Аналитика
+</code></pre></div>
+<p>API отвечает клиенту за миллисекунды, а тяжёлая работа выполняется фоновым воркером — это классический паттерн <strong>event-driven architecture</strong>.</p>
+<hr />
+<h2 id="2-fastapi-">2. Контейнеризация FastAPI-приложения</h2>
+<h3 id="21-docker-backend">2.1. Docker-образ backend</h3>
+<p>Backend и Scheduler собираются из <strong>одного Dockerfile</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base image</td>
+<td><code>python:3.12.7</code></td>
+</tr>
+<tr>
+<td>Зависимости</td>
+<td><code>pip install -r backend/requirements.txt</code></td>
+</tr>
+<tr>
+<td>Код</td>
+<td><code>COPY . .</code> — весь монорепозиторий <code>project/</code></td>
+</tr>
+<tr>
+<td>Рабочая директория</td>
+<td><code>/project</code></td>
+</tr>
+</tbody>
+</table>
+<p>ML-сервис имеет отдельный Dockerfile со своим <code>requirements.txt</code>, так как набор зависимостей отличается (ML-библиотеки, LLM-клиент).</p>
+<p>Gateway собирается multi-stage: Node.js для сборки фронтенда → Nginx для раздачи статики и reverse-proxy.</p>
+<h3 id="22-docker-compose">2.2. Docker Compose — инфраструктура</h3>
+<p>Все сервисы описаны в <code>docker-compose.yml</code> и работают в общей сети <code>pulse-net</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Сервис</th>
+<th>Образ</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>postgres</code></td>
+<td>postgres:14-alpine</td>
+<td>Основная БД</td>
+</tr>
+<tr>
+<td><code>redis</code></td>
+<td>redis:latest</td>
+<td>Кэш, rate limit, WebSocket pub/sub</td>
+</tr>
+<tr>
+<td><code>rabbitmq</code></td>
+<td>rabbitmq:3.13-management</td>
+<td>Брокер сообщений</td>
+</tr>
+<tr>
+<td><code>minio</code></td>
+<td>minio/minio</td>
+<td>S3-совместимое хранилище файлов</td>
+</tr>
+<tr>
+<td><code>backend</code></td>
+<td>backend:${TAG}</td>
+<td>REST API</td>
+</tr>
+<tr>
+<td><code>backend-scheduler</code></td>
+<td>backend:${TAG}</td>
+<td>Фоновый воркер (тот же образ!)</td>
+</tr>
+<tr>
+<td><code>ml</code></td>
+<td>ml:${TAG}</td>
+<td>Аналитика и ML-consumer</td>
+</tr>
+<tr>
+<td><code>gateway</code></td>
+<td>custom Nginx</td>
+<td>TLS, прокси, фронтенд</td>
+</tr>
+</tbody>
+</table>
+<p>Ключевой момент: <strong>backend</strong> и <strong>backend-scheduler</strong> используют один образ, но разные команды запуска:</p>
+<table>
+<thead>
+<tr>
+<th>Контейнер</th>
+<th>Команда</th>
+<th>Роль</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>backend</code></td>
+<td><code>python main.py backend --run</code></td>
+<td>HTTP API</td>
+</tr>
+<tr>
+<td><code>backend-scheduler</code></td>
+<td><code>python main.py scheduler --run</code></td>
+<td>Парсинг и планировщики</td>
+</tr>
+</tbody>
+</table>
+<p>Это экономит ресурсы сборки и гарантирует идентичность кода между API и воркером.</p>
+<h3 id="23-healthchecks">2.3. Healthchecks и зависимости</h3>
+<p>Каждый сервис имеет healthcheck:</p>
+<ul>
+<li>Backend и ML: <code>GET /api/v1/health</code></li>
+<li>Scheduler: <code>GET /health</code></li>
+<li>PostgreSQL, Redis, RabbitMQ, MinIO: встроенные проверки</li>
+</ul>
+<p><code>depends_on</code> с условием <code>service_healthy</code> гарантирует, что backend стартует только после готовности БД и брокера — это предотвращает race condition при первом запуске.</p>
+<h3 id="24-shared-volume">2.4. Shared volume для файлов</h3>
+<p>Между backend и scheduler смонтирован общий том <code>contracts_tmp</code> → <code>/shared/contracts</code>. API записывает подготовленный CSV-файл в этот каталог, а в сообщение очереди кладёт только <strong>путь к файлу</strong>. Scheduler читает файл по этому пути.</p>
+<p>Такой подход (передача пути, а не содержимого) эффективен для больших файлов и не перегружает брокер сообщений.</p>
+<div class="highlight"><pre><span></span><code>flowchart LR
+  subgraph backend_container [Backend]
+    API[FastAPI]
+    FS1[/shared/contracts/]
+    API --&gt; FS1
+  end
+
+  subgraph scheduler_container [Scheduler]
+    CON[Consumer]
+    FS2[/shared/contracts/]
+    CON --&gt; FS2
+  end
+
+  VOL[(Volume: contracts_tmp)]
+
+  FS1 --- VOL
+  FS2 --- VOL
+</code></pre></div>
+<hr />
+<h2 id="3">3. Интеграция парсера с базой данных</h2>
+<h3 id="31">3.1. Типы парсеров в проекте</h3>
+<p>Платформа включает три независимых парсера данных:</p>
+<table>
+<thead>
+<tr>
+<th>Парсер</th>
+<th>Источник</th>
+<th>Результат в БД</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Договоры</strong></td>
+<td>Excel → CSV</td>
+<td>Здания, арендаторы, договоры, начисления</td>
+</tr>
+<tr>
+<td><strong>Биллинг</strong></td>
+<td>Excel → CSV</td>
+<td>Финансовые записи, категории доходов/расходов</td>
+</tr>
+<tr>
+<td><strong>Посещаемость</strong></td>
+<td>Внешний Traffic API (JSON)</td>
+<td>Показания датчиков <code>SensorReading</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-excel-pipeline">3.2. Парсинг Excel-файлов (основной pipeline)</h3>
+<h4 id="1-api">Этап 1 — Подготовка на стороне API</h4>
+<ol>
+<li>Администратор загружает <code>.xlsx</code> через <code>POST /api/v1/admin/contracts/process</code> (или аналог для биллинга).</li>
+<li>Сервис валидации проверяет структуру файла, лимиты размера и числа строк.</li>
+<li>XLSX конвертируется в CSV (через thread pool — см. лабораторную 2).</li>
+<li>CSV сохраняется в shared volume.</li>
+<li>В RabbitMQ публикуется JSON-сообщение с action и путём к файлу.</li>
+<li>API немедленно возвращает <code>200 Accepted</code> — клиент не ждёт парсинга.</li>
+</ol>
+<h4 id="2-scheduler">Этап 2 — Обработка на стороне Scheduler</h4>
+<p>Consumer <code>MessageBrokerScheduler</code> постоянно слушает очередь <code>process_files_queue</code>:</p>
+<ol>
+<li>Получает сообщение, определяет action (<code>process_contracts_file</code> / <code>process_billing_file</code>).</li>
+<li>Потоково читает CSV через <code>aiofiles</code> чанками (настраиваемый <code>read_chunk_size</code>).</li>
+<li>Парсит строки с разделителем <code>;</code>, кодировка UTF-8-sig.</li>
+<li>Накапливает batch (по 500 строк) и выполняет bulk-операции в PostgreSQL.</li>
+<li>По завершении удаляет временный CSV и подтверждает сообщение (ack).</li>
+</ol>
+<h4 id="3_1">Этап 3 — Операции с БД</h4>
+<p>Парсер использует транзакционные bulk-операции:</p>
+<ul>
+<li><strong><code>custom_bulk_get_or_create</code></strong> — найти существующую запись или создать новую (здания, арендаторы)</li>
+<li><strong><code>custom_upsert</code></strong> — обновить при конфликте или вставить (договоры, начисления)</li>
+<li><strong><code>custom_insert_do_nothing</code></strong> — вставить только новые записи (идемпотентность)</li>
+</ul>
+<p>Все операции выполняются внутри <code>start_transaction_immediately()</code> — при ошибке парсинга batch откатывается, а сообщение возвращается в очередь (requeue).</p>
+<h3 id="33-api">3.3. Парсинг посещаемости (внешний API)</h3>
+<p>Планировщик <code>AttendanceParseScheduler</code> каждый час:</p>
+<ol>
+<li>Читает API-токен из таблицы <code>Settings</code>.</li>
+<li>Выполняет HTTP-запрос к внешнему Traffic API.</li>
+<li>Парсит JSON-ответ в объекты <code>SensorReading</code>.</li>
+<li>Выполняет upsert батчами по 100 записей.</li>
+<li>В 23:00 (MSK) публикует сообщение <code>buildings_to_analyze</code> в ML-очередь.</li>
+</ol>
+<h3 id="34">3.4. Защитные лимиты парсера</h3>
+<table>
+<thead>
+<tr>
+<th>Лимит</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Максимальный размер файла</td>
+<td>Защита от OOM при загрузке</td>
+</tr>
+<tr>
+<td>Максимальное число строк</td>
+<td>Предсказуемое время обработки</td>
+</tr>
+<tr>
+<td>Размер batch (500 строк)</td>
+<td>Баланс между скоростью и памятью</td>
+</tr>
+<tr>
+<td>Prefetch = 10 (RabbitMQ)</td>
+<td>Не перегружать воркер сообщениями</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-api">4. Вызов парсера через API и очередь</h2>
+<h3 id="41">4.1. Почему очередь, а не прямой вызов</h3>
+<p>Синхронный вызов парсера из API привёл бы к:</p>
+<ul>
+<li>таймаутам HTTP при больших файлах (минуты обработки)</li>
+<li>блокировке воркера API на время парсинга</li>
+<li>невозможности retry при сбоях</li>
+</ul>
+<p><strong>RabbitMQ</strong> решает эти проблемы: API публикует задачу и сразу отвечает клиенту, а Scheduler обрабатывает в своём темпе с автоматическим requeue при ошибках.</p>
+<h3 id="42">4.2. Очереди и маршрутизация</h3>
+<table>
+<thead>
+<tr>
+<th>Очередь</th>
+<th>Producer</th>
+<th>Consumer</th>
+<th>Содержание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>process_files_queue</code></td>
+<td>Backend API</td>
+<td>Scheduler</td>
+<td>Задачи парсинга файлов</td>
+</tr>
+<tr>
+<td><code>ml_queue</code></td>
+<td>Scheduler</td>
+<td>ML-сервис</td>
+<td>Задачи аналитики и ML</td>
+</tr>
+</tbody>
+</table>
+<p>Сообщения — JSON с полем <code>action</code> и <code>model</code>:</p>
+<table>
+<thead>
+<tr>
+<th>action</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>process_contracts_file</code></td>
+<td>Путь к CSV договоров</td>
+</tr>
+<tr>
+<td><code>process_billing_file</code></td>
+<td>Путь к CSV биллинга</td>
+</tr>
+<tr>
+<td><code>prepare_new_buildings</code></td>
+<td>Список ID договоров → ML</td>
+</tr>
+<tr>
+<td><code>buildings_to_analyze</code></td>
+<td>ID зданий и аналитик → ML</td>
+</tr>
+</tbody>
+</table>
+<p>Очереди <strong>durable</strong>, сообщения <strong>persistent</strong> — при перезапуске RabbitMQ задачи не теряются.</p>
+<h3 id="43-pipeline-sequence-diagram">4.3. Полный pipeline (sequence diagram)</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant Admin as Администратор
+    participant API as Backend API
+    participant Vol as Shared Volume
+    participant RMQ as RabbitMQ
+    participant SCH as Scheduler
+    participant DB as PostgreSQL
+    participant ML as ML-сервис
+
+    Admin-&gt;&gt;API: POST /admin/contracts/process (.xlsx)
+    API-&gt;&gt;API: Валидация + XLSX → CSV
+    API-&gt;&gt;Vol: Запись CSV
+    API-&gt;&gt;RMQ: process_contracts_file {path}
+    API--&gt;&gt;Admin: 200 Accepted
+
+    RMQ-&gt;&gt;SCH: Доставка сообщения
+    SCH-&gt;&gt;Vol: Потоковое чтение CSV
+    loop Каждый batch (500 строк)
+        SCH-&gt;&gt;DB: bulk upsert
+    end
+    SCH-&gt;&gt;RMQ: prepare_new_buildings → ml_queue
+    SCH-&gt;&gt;Vol: Удаление CSV
+    SCH-&gt;&gt;RMQ: ack
+
+    RMQ-&gt;&gt;ML: Доставка в ml_queue
+    ML-&gt;&gt;DB: Аналитика и расчёты
+</code></pre></div>
+<h3 id="44">4.4. Обработка ошибок в очереди</h3>
+<p>Consumer реализует стратегию ack/reject:</p>
+<ul>
+<li><strong>Успех</strong> → <code>ack</code> — сообщение удаляется из очереди</li>
+<li><strong>Transient error</strong> (сеть, временная недоступность БД) → <code>reject(requeue=True)</code> — сообщение вернётся в очередь</li>
+<li><strong>Permanent error</strong> (битый файл, невалидные данные) → логирование + <code>ack</code> — сообщение не блокирует очередь</li>
+</ul>
+<p><code>asyncio.Lock</code> на стороне publisher гарантирует, что соединение с RabbitMQ инициализируется только один раз при конкурентных запросах.</p>
+<hr />
+<h2 id="5">5. Схема развёртывания</h2>
+<div class="highlight"><pre><span></span><code>flowchart TB
+    subgraph docker [Docker Compose]
+        direction TB
+        GW[Gateway :443]
+        BE[Backend :8000]
+        BS[Scheduler]
+        ML[ML :8002]
+        PG[(PostgreSQL)]
+        RD[(Redis)]
+        RMQ[(RabbitMQ)]
+        MN[(MinIO)]
+        VOL[contracts_tmp volume]
+    end
+
+    User((Пользователь)) --&gt; GW
+    GW --&gt; BE
+    BE --&gt; PG
+    BE --&gt; RD
+    BE --&gt; RMQ
+    BE --&gt; MN
+    BE --&gt; VOL
+    RMQ --&gt; BS
+    BS --&gt; PG
+    BS --&gt; VOL
+    BS --&gt; RMQ
+    RMQ --&gt; ML
+    ML --&gt; PG
+</code></pre></div>
+<hr />
+<h2 id="6">6. Локальная сборка и запуск</h2>
+<p>Для локальной разработки предусмотрен <code>Makefile</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Команда</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make build</code></td>
+<td>Сборка образов backend, ml, gateway</td>
+</tr>
+<tr>
+<td><code>make up</code></td>
+<td><code>docker compose up</code></td>
+</tr>
+<tr>
+<td><code>make test</code></td>
+<td>Запуск pytest внутри контейнера</td>
+</tr>
+</tbody>
+</table>
+<p>Перед первым запуском необходимо создать <code>.env</code> с переменными для PostgreSQL, Redis, RabbitMQ, MinIO и JWT-секретами.</p>
+<hr />
+<h2 id="7">7. Единственный фрагмент кода — публикация в очередь</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Упрощённая схема: API не вызывает парсер напрямую</span>
+<span class="k">await</span> <span class="n">message_broker</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span>
+    <span class="n">action</span><span class="o">=</span><span class="s2">&quot;process_contracts_file&quot;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/shared/contracts/upload_123.csv&quot;</span><span class="p">},</span>
+    <span class="n">queue</span><span class="o">=</span><span class="s2">&quot;process_files_queue&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># Клиент уже получил 200 — парсинг идёт асинхронно</span>
+</code></pre></div>
+<hr />
+<h2 id="8">8. Результаты и выводы</h2>
+<p>В ходе третьей лабораторной работы был реализован и задокументирован полный production-pipeline:</p>
+<table>
+<thead>
+<tr>
+<th>Навык</th>
+<th>Реализация</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker-упаковка FastAPI</td>
+<td>Dockerfile + Compose, один образ — две роли</td>
+</tr>
+<tr>
+<td>Интеграция парсера с БД</td>
+<td>Потоковый CSV-парсер, bulk upsert, транзакции</td>
+</tr>
+<tr>
+<td>Вызов через API</td>
+<td>Upload endpoint → валидация → публикация в очередь → 200 Accepted</td>
+</tr>
+<tr>
+<td>Очередь сообщений</td>
+<td>RabbitMQ, durable queues, persistent messages, ack/reject</td>
+</tr>
+<tr>
+<td>Масштабируемость</td>
+<td>API и воркер масштабируются независимо</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_1">Преимущества выбранной архитектуры</h3>
+<ul>
+<li><strong>Отзывчивость API</strong> — клиент не ждёт минуты парсинга</li>
+<li><strong>Надёжность</strong> — сообщения переживают перезапуск сервисов</li>
+<li><strong>Идемпотентность</strong> — повторная обработка не создаёт дубликатов</li>
+<li><strong>Независимое масштабирование</strong> — можно добавить второй Scheduler-consumer без изменения API</li>
+<li><strong>Изоляция сбоев</strong> — ошибка парсинга не роняет API</li>
+</ul>
+<hr />
+<div class="admonition success">
+<p class="admonition-title">Ключевой вывод</p>
+<p>Связка <strong>FastAPI + Docker + RabbitMQ + PostgreSQL</strong> позволяет построить устойчивый pipeline обработки данных, в котором API остаётся быстрым, а тяжёлая работа выполняется надёжно и асинхронно в фоновых воркерах.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Нижний колонтитул" >
+        
+          
+          <a href="../lab2-async/" class="md-footer__link md-footer__link--prev" aria-label="Назад: Лабораторная 2 — Асинхронность">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Назад
+              </span>
+              <div class="md-ellipsis">
+                Лабораторная 2 — Асинхронность
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Лабораторные работы · Pulse Platform
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "toc.integrate", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
